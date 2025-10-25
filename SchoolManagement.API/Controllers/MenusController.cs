@@ -1,8 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SchoolManagement.API.Helpers;
 using SchoolManagement.Application.DTOs;
 using SchoolManagement.Application.Interfaces;
+using SchoolManagement.Application.Menus.Commands;
+using SchoolManagement.Application.Menus.Queries;
 using SchoolManagement.Domain.Entities;
 using System.Security.Claims;
 
@@ -52,7 +55,7 @@ namespace SchoolManagement.API.Controllers
         [Authorize(Roles = "Admin,SuperAdmin")]
         public async Task<ActionResult<IEnumerable<MenuDto>>> GetMenuHierarchy()
         {
-            var query = new GetMenuHierarchyQuery();
+            var query = new GetAllMenusQuery();
             var menus = await _mediator.Send(query);
             return Ok(menus);
         }
